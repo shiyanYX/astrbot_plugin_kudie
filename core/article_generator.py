@@ -138,7 +138,7 @@ class ArticleGenerator:
 
             if search_text:
                 bg_prompt = self._prompt_builder.build_background_prompt(search_text)
-                bg_summary = await self._llm_generate_plain(bg_prompt)
+                bg_summary = await self._llm_generate_plain(bg_prompt, event.unified_msg_origin)
 
                 if bg_summary:
                     char_bg, evt_bg = self._parse_background_summary(bg_summary)
