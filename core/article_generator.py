@@ -130,7 +130,11 @@ class ArticleGenerator:
                 max_search=self._config.get("search_max_posts", 10),
                 max_content=self._config.get("search_max_comments", 5),
             )
-            logger.info(f"爬虫返回: {len(search_text)} 字符" if search_text else "爬虫返回: 空结果")
+            if search_text:
+                preview = search_text[:200].replace("\n", " ")
+                logger.info(f"爬虫返回 {len(search_text)} 字符: {preview}...")
+            else:
+                logger.info("爬虫返回: 空结果")
 
             if search_text:
                 bg_prompt = self._prompt_builder.build_background_prompt(search_text)
