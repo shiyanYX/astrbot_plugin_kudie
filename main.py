@@ -340,4 +340,6 @@ class KudiePlugin(Star):
             self._cache.clear_character_cache()
             yield event.plain_result("✅ 角色信息缓存已清除")
         else:
-            yield event
+            yield event.plain_result(
+                "0001F4E6 /尽孝缓存 清除/事件/角色"
+            )
