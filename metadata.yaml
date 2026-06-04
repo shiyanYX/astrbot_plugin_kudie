@@ -1,9 +1,9 @@
-name: astrbot_plugin_wwkudie
+name: astrbot_plugin_kudie
 display_name: 尽孝
 desc: 热爱游戏，把游戏公司当父亲尽孝的人。支持贴吧搜索热点+AI写作
 version: 2.1.0
 author: NumInvis
-repo: https://github.com/NumInvis/astrbot_plugin_wwkudie
+repo: https://github.com/NumInvis/astrbot_plugin_kudie
 astrbot_version: ">=4.0.0"
 support_platforms:
   - aiocqhttp

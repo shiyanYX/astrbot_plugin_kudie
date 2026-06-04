@@ -3,17 +3,17 @@
 """
 
 
-class WwkudieError(Exception):
+class KudieError(Exception):
     """尽孝插件基础异常"""
     pass
 
 
-class ValidationError(WwkudieError):
+class ValidationError(KudieError):
     """输入验证错误"""
     pass
 
 
-class CooldownError(WwkudieError):
+class CooldownError(KudieError):
     """冷却限制错误"""
     
     def __init__(self, message: str, remaining_seconds: int = 0):
@@ -21,7 +21,7 @@ class CooldownError(WwkudieError):
         self.remaining_seconds = remaining_seconds
 
 
-class RateLimitError(WwkudieError):
+class RateLimitError(KudieError):
     """限流错误"""
     
     def __init__(self, message: str, wait_time: int = 0):
@@ -29,11 +29,11 @@ class RateLimitError(WwkudieError):
         self.wait_time = wait_time
 
 
-class LLMError(WwkudieError):
+class LLMError(KudieError):
     """LLM 调用错误"""
     pass
 
 
-class ConfigError(WwkudieError):
+class ConfigError(KudieError):
     """配置错误"""
     pass

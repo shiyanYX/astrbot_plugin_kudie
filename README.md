@@ -23,7 +23,7 @@
 4. 点击安装
 
 ### 方法二：手动安装
-1. 将 `astrbot_plugin_wwkudie` 文件夹复制到 AstrBot 的 `data/plugins` 目录下
+1. 将 `astrbot_plugin_kudie` 文件夹复制到 AstrBot 的 `data/plugins` 目录下
 2. 重启 AstrBot
 3. 插件自动加载
 
@@ -101,7 +101,7 @@
 ## 🏗️ 代码结构
 
 ```
-astrbot_plugin_wwkudie/
+astrbot_plugin_kudie/
 ├── core/                      # 核心模块
 │   ├── __init__.py
 │   ├── config_manager.py      # 配置管理器
@@ -199,4 +199,4 @@ NumInvis
 
 ## 仓库
 
-https://github.com/NumInvis/astrbot_plugin_wwkudie
+https://github.com/NumInvis/astrbot_plugin_kudie

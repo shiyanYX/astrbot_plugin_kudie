@@ -34,7 +34,7 @@ class ConfigManager:
         self._context = context
         self._cache = {}
         self._cache_valid = False
-        self._plugin_name = "astrbot_plugin_wwkudie"
+        self._plugin_name = "astrbot_plugin_kudie"
         self._runtime = {}
 
     def _load_config(self):

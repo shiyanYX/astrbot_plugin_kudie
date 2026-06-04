@@ -4,10 +4,10 @@
 
 版本: 2.0.0
 作者: NumInvis
-仓库: https://github.com/NumInvis/astrbot_plugin_wwkudie
+仓库: https://github.com/NumInvis/astrbot_plugin_kudie
 """
 
 from ._version import __version__, __plugin_name__, __plugin_desc__, __author__
-from .main import WwkudiePlugin
+from .main import KudiePlugin
 
-__all__ = ["WwkudiePlugin", "__version__", "__plugin_name__", "__plugin_desc__", "__author__"]
+__all__ = ["KudiePlugin", "__version__", "__plugin_name__", "__plugin_desc__", "__author__"]

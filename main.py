@@ -24,7 +24,7 @@ from .core.search.qrlogin import TiebaQRLogin
 
 
 @register(__plugin_name__, __author__, __plugin_desc__, __version__)
-class WwkudiePlugin(Star):
+class KudiePlugin(Star):
     """尽孝插件主类"""
 
     def __init__(self, context: Context, config: dict = None):
@@ -87,7 +87,7 @@ class WwkudiePlugin(Star):
     # ==================== 命令处理 ====================
 
     @filter.command("尽孝")
-    async def wwkudie_command(self, event: AstrMessageEvent):
+    async def kudie_command(self, event: AstrMessageEvent):
         """尽孝命令 - 普通链路"""
         user_id = event.get_sender_id()
         content = event.message_str.strip()
@@ -127,7 +127,7 @@ class WwkudiePlugin(Star):
             yield event.plain_result(result)
 
     @filter.command("尽孝搜索")
-    async def wwkudie_search(self, event: AstrMessageEvent):
+    async def kudie_search(self, event: AstrMessageEvent):
         """尽孝搜索 - 搜索链路"""
         user_id = event.get_sender_id()
         content = event.message_str.strip()
@@ -165,7 +165,7 @@ class WwkudiePlugin(Star):
             yield event.plain_result(result)
 
     @filter.command("尽孝风格")
-    async def wwkudie_styles(self, event: AstrMessageEvent):
+    async def kudie_styles(self, event: AstrMessageEvent):
         """显示所有可用风格"""
         styles = self._style_manager.get_all_styles()
         lines = ["🎨 尽孝插件 - 可用风格列表\n"]
@@ -188,7 +188,7 @@ class WwkudiePlugin(Star):
         yield event.plain_result("\n".join(lines))
 
     @filter.command("尽孝历史")
-    async def wwkudie_history(self, event: AstrMessageEvent):
+    async def kudie_history(self, event: AstrMessageEvent):
         """查看历史记录"""
         if not self._config.get("enable_history", True):
             yield event.plain_result("❌ 历史记录功能未启用")
@@ -212,7 +212,7 @@ class WwkudiePlugin(Star):
         yield event.plain_result("\n".join(lines))
 
     @filter.command("尽孝清除")
-    async def wwkudie_clear(self, event: AstrMessageEvent):
+    async def kudie_clear(self, event: AstrMessageEvent):
         """清除历史记录"""
         if not self._config.get("enable_history", True):
             yield event.plain_result("❌ 历史记录功能未启用")
@@ -222,7 +222,7 @@ class WwkudiePlugin(Star):
         yield event.plain_result("✅ 已清除您的尽孝历史记录" if success else "📭 您还没有历史记录需要清除")
 
     @filter.command("尽孝状态")
-    async def wwkudie_status(self, event: AstrMessageEvent):
+    async def kudie_status(self, event: AstrMessageEvent):
         """查看插件状态"""
         lines = ["📊 尽孝插件状态", f"\n版本: v{__version__}", f"作者: {__author__}"]
         if self._config.get("enable_history", True):
@@ -232,7 +232,7 @@ class WwkudiePlugin(Star):
         yield event.plain_result("\n".join(lines))
 
     @filter.command("尽孝帮助")
-    async def wwkudie_help(self, event: AstrMessageEvent):
+    async def kudie_help(self, event: AstrMessageEvent):
         """显示帮助信息"""
         help_text = (
             "🎮 尽孝插件 v2.1.0 使用帮助\n\n"
@@ -252,7 +252,7 @@ class WwkudiePlugin(Star):
 
 
     @filter.command("尽孝扫码")
-    async def wwkudie_qrlogin(self, event: AstrMessageEvent):
+    async def kudie_qrlogin(self, event: AstrMessageEvent):
         """贴吧扫码登录"""
         try:
             qr = TiebaQRLogin(timeout=10)
@@ -261,7 +261,7 @@ class WwkudiePlugin(Star):
             from astrbot.api.message_components import Image
             import base64
             b64 = base64.b64encode(qr_data["img_data"]).decode()
-            yield event.chain_result([Image(file=b64)])
+            yield event.chain_result([Image(file=f"base64://{b64}")])
             sign = qr_data["sign"]
             for _ in range(60):
                 await asyncio.sleep(2)
@@ -295,7 +295,7 @@ class WwkudiePlugin(Star):
             yield event.plain_result(f"❌ 扫码登录失败: {e}")
 
     @filter.command("尽孝登录")
-    async def wwkudie_login(self, event: AstrMessageEvent):
+    async def kudie_login(self, event: AstrMessageEvent):
         """手动设置贴吧 Cookie"""
         content = event.message_str.strip()
         if not content:
@@ -327,7 +327,7 @@ class WwkudiePlugin(Star):
             yield event.plain_result("❌ 未找到BDUSS值")
 
     @filter.command("尽孝缓存")
-    async def wwkudie_cache(self, event: AstrMessageEvent):
+    async def kudie_cache(self, event: AstrMessageEvent):
         """缓存管理"""
         content = event.message_str.strip()
         if content == "清除":
@@ -340,4 +340,4 @@ class WwkudiePlugin(Star):
             self._cache.clear_character_cache()
             yield event.plain_result("✅ 角色信息缓存已清除")
         else:
-            yield event.plain_resul
+            yield eve
