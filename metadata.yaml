@@ -15,4 +15,7 @@ support_platforms:
   - slack
   - kook
   - vocechat
-  - weixin_official_acco
+  - weixin_official_accounts
+  - satori
+  - misskey
+  - line

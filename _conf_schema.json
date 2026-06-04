@@ -4,7 +4,17 @@
     "type": "string",
     "hint": "当用户未指定风格时使用的默认风格",
     "default": "默认",
-    "options": ["默认", "文言文", "赞美诗歌", "数据分析", "激烈反问", "商业精英", "业内人士", "新闻联播", "学术期刊"]
+    "options": [
+      "默认",
+      "文言文",
+      "赞美诗歌",
+      "数据分析",
+      "激烈反问",
+      "商业精英",
+      "业内人士",
+      "新闻联播",
+      "学术期刊"
+    ]
   },
   "enable_history": {
     "description": "启用历史记录",
@@ -17,7 +27,11 @@
     "type": "int",
     "hint": "每个用户最多保存多少条历史记录",
     "default": 10,
-    "slider": {"min": 5, "max": 50, "step": 5}
+    "slider": {
+      "min": 5,
+      "max": 50,
+      "step": 5
+    }
   },
   "system_prompt": {
     "description": "系统提示词",
@@ -30,30 +44,91 @@
     "type": "string",
     "hint": "llm=用大模型优化搜索词，raw=直接使用用户输入",
     "default": "llm",
-    "options": ["llm", "raw"]
+    "options": [
+      "llm",
+      "raw"
+    ]
   },
   "search_engine": {
     "description": "搜索入口",
     "type": "string",
     "hint": "baidu=百度站内搜索贴吧，tieba=贴吧站内搜索",
     "default": "baidu",
-    "options": ["baidu", "tieba"]
+    "options": [
+      "baidu",
+      "tieba"
+    ]
   },
   "search_timeout": {
     "description": "搜索超时（秒）",
     "type": "int",
     "hint": "爬虫单次请求的超时时间",
     "default": 15,
-    "slider": {"min": 5, "max": 30, "step": 5}
+    "slider": {
+      "min": 5,
+      "max": 30,
+      "step": 5
+    }
   },
   "search_max_posts": {
     "description": "最大搜索帖子数",
     "type": "int",
     "hint": "每次搜索返回的最多帖子数",
     "default": 10,
-    "slider": {"min": 3, "max": 20, "step": 1}
+    "slider": {
+      "min": 3,
+      "max": 20,
+      "step": 1
+    }
   },
   "search_max_comments": {
     "description": "每帖最大评论数",
     "type": "int",
-    "hint": "每个帖子最多抓取的评论数
+    "hint": "每个帖子最多抓取的评论数（含主楼）",
+    "default": 5,
+    "slider": {
+      "min": 1,
+      "max": 10,
+      "step": 1
+    }
+  },
+  "cache_event_ttl": {
+    "description": "事件缓存有效期（秒）",
+    "type": "int",
+    "hint": "同一话题的搜索结果缓存多久（默认600秒=10分钟）",
+    "default": 600,
+    "slider": {
+      "min": 60,
+      "max": 3600,
+      "step": 60
+    }
+  },
+  "cache_character_ttl": {
+    "description": "角色缓存有效期（秒）",
+    "type": "int",
+    "hint": "角色信息缓存多久（默认604800秒=7天）",
+    "default": 604800,
+    "slider": {
+      "min": 86400,
+      "max": 2592000,
+      "step": 86400
+    }
+  },
+  "enable_wiki_search": {
+    "description": "启用Wiki角色搜索",
+    "type": "bool",
+    "hint": "搜索角色基本信息（性别、年龄、类型）时使用Wiki百科",
+    "default": true
+  },
+  "wiki_sources": {
+    "description": "Wiki来源配置",
+    "type": "string",
+    "hint": "auto=按游戏自动选择，moegirl=萌娘百科，bwiki=B站Wiki",
+    "default": "auto",
+    "options": [
+      "auto",
+      "moegirl",
+      "bwiki"
+    ]
+  }
+}
