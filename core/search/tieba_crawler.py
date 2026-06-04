@@ -174,4 +174,11 @@ class TiebaCrawler:
             if not p or not p["posts"]: continue
             lines.append(f"--- Post {i+1}: {p['title']} ---")
             lines.append(f"URL: {r['url']}\n")
- 
+
+            for pp in p["posts"][:max_content]:
+                role = pp.get("role", "")
+                author = pp.get("author", "")
+                a_tag = f"[{author}] " if author else ""
+                lines.append(f"{role} {a_tag}{pp['content']}")
+            lines.append("")
+        return "\n".join(lines) if lines else ""
