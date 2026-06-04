@@ -32,12 +32,11 @@ def _fetch(url, headers=None, data=None, cookie_str="", t=15):
         if r.headers.get("Content-Encoding") == "gzip": raw = gzip.decompress(raw)
         return raw.decode("utf-8", errors="ignore")
     except HTTPError as e:
-        if e.code in (403,404,410): _log(f"  HTTP {e.code}"); return ""
-        raw = e.read()
-        if e.headers.get("Content-Encoding") == "gzip": raw = gzip.decompress(raw)
-        return raw.decode("utf-8", errors="ignore")
+        logger.info(f"  HTTP {e.code}: {url[:100]}")
+        return ""
     except Exception as e:
-        _log(f"  fetch: {e}"); return ""
+        logger.info(f"  fetch error: {e} | {url[:100]}")
+        return ""
 
 class TiebaCrawler:
     BING_RSS = "https://www.bing.com/search?format=rss"
@@ -65,14 +64,18 @@ class TiebaCrawler:
 
     def search(self, kw, mr=10):
         _log(f"Search: '{kw}'", debug=self._debug)
+        logger.info(f"贴吧搜索: {kw[:60]}")
         r = self._native(kw, mr)
-        if r: return r
+        if r: logger.info(f"  原生搜索找到 {len(r)} 条"); return r
+        logger.info("  原生搜索无结果，尝试 Bing RSS...")
         q = f"{kw} 贴吧"
         r = self._bing_rss(q, mr)
-        if r: return r
+        if r: logger.info(f"  Bing RSS 找到 {len(r)} 条"); return r
+        logger.info("  Bing RSS 无结果，尝试 Bing HTML...")
         r = self._bing_html(q, mr)
-        if r: return r
+        if r: logger.info(f"  Bing HTML 找到 {len(r)} 条"); return r
         _log("All failed", debug=self._debug)
+        logger.info("  所有搜索方式均无结果")
 
     def _native(self, kw, mr):
         p = kw.split()
@@ -165,8 +168,4 @@ class TiebaCrawler:
             if not p or not p['posts']: continue
             lines.append(f"--- Post {i+1}: {p['title']} ---")
             lines.append(f"URL: {r['url']}\n")
-            for pp in p['posts'][:max_content]:
-                a = f"[{pp['author']}] " if pp['author'] else ""
-                lines.append(f"{pp.get('role','')} {a}{pp['content']}")
-            lines.append("")
-        return "\n".join(lines) if lines else ""
+ 
