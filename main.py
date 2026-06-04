@@ -343,3 +343,4 @@ class WwkudiePlugin(Star):
         else:
             yield event.plain_result(
                 "📦 /尽孝缓存 清除/事件/角色"
+            )
