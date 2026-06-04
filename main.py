@@ -61,6 +61,11 @@ class KudiePlugin(Star):
         """解析文章生成命令参数"""
         if not content:
             return "", "", self._config.get("default_style", "默认"), ""
+        # 去掉可能残留的命令名（部分 AstrBot 版本 message_str 会保留）
+        for cmd in ("尽孝搜索", "尽孝"):
+            if content.startswith(cmd + " "):
+                content = content[len(cmd):].strip()
+                break
         parts = content.split()
         if len(parts) < 2:
             return "", "", self._config.get("default_style", "默认"), ""
@@ -335,9 +340,4 @@ class KudiePlugin(Star):
             self._cache.clear_all()
             yield event.plain_result("✅ 所有搜索缓存已清除")
         elif content == "事件":
-            self._cache.clear_event_cache()
-            yield event.plain_result("✅ 事件搜索缓存已清除")
-        elif content == "角色":
-            self._cache.clear_character_cache()
-            yield event.plain_result("✅ 角色信息缓存已清除")
-        
+            self._ca
