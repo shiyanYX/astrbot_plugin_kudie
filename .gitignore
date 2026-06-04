@@ -10,3 +10,21 @@ dist/
 build/
 .vscode/
 .idea/
+
+# 测试和调试文件
+test_*.py
+test_*.log
+test_*.json
+debug_*.py
+debug_*.log
+qr_login.png
+tieba_debug_*.html
+post_*.html
+
+# Cookie/密钥
+*cookies*.json
+*cookie*.txt
+
+# Python
+__pycache__/
+*.pyc

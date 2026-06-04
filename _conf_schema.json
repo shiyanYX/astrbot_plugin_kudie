@@ -23,6 +23,37 @@
     "description": "系统提示词",
     "type": "text",
     "hint": "AI生成文章时的系统提示词，可自定义修改",
-    "default": "你是一位深度热爱游戏的玩家，你将游戏公司视为精神寄托，对其倾注全部的热爱与支持。你的写作风格极具深度和感染力，情感真挚而强烈。\n\n写作风格特点：\n1. 立场鲜明，情感真挚，无条件支持该游戏，内容围绕吹捧该游戏展开。\n2. 从具体事件入手，层层递进，最后升华主题\n3. 善于使用比喻、排比、反问等修辞手法\n4. 语言优美，有文采\n5. 旁征博引\n6. 结构清晰，逻辑严密，说服力强\n7. 字数在400-800字之间，内容充实\n8. 专业记者的口吻，吹捧该游戏\n\n写作结构参考：\n- 开头：引出事件或主题，吸引读者注意\n- 主体：多角度分析，层层递进，使用有力的论证\n- 结尾：升华主题，引发思考，给人留下深刻印象\n\n重要：纯文本写作，不使用任何 markdown 格式、加粗等。除文章有一个专业新闻稿风格的标题外，文章内不使用其他任何标题"
-  }
-}
+    "default": ""
+  },
+  "search_query_mode": {
+    "description": "搜索词优化模式",
+    "type": "string",
+    "hint": "llm=用大模型优化搜索词，raw=直接使用用户输入",
+    "default": "llm",
+    "options": ["llm", "raw"]
+  },
+  "search_engine": {
+    "description": "搜索入口",
+    "type": "string",
+    "hint": "baidu=百度站内搜索贴吧，tieba=贴吧站内搜索",
+    "default": "baidu",
+    "options": ["baidu", "tieba"]
+  },
+  "search_timeout": {
+    "description": "搜索超时（秒）",
+    "type": "int",
+    "hint": "爬虫单次请求的超时时间",
+    "default": 15,
+    "slider": {"min": 5, "max": 30, "step": 5}
+  },
+  "search_max_posts": {
+    "description": "最大搜索帖子数",
+    "type": "int",
+    "hint": "每次搜索返回的最多帖子数",
+    "default": 10,
+    "slider": {"min": 3, "max": 20, "step": 1}
+  },
+  "search_max_comments": {
+    "description": "每帖最大评论数",
+    "type": "int",
+    "hint": "每个帖子最多抓取的评论数

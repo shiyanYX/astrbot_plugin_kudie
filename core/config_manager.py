@@ -18,13 +18,28 @@ class ConfigManager:
         "system_prompt": None,
         "enable_history": True,
         "max_history_per_user": 10,
+        # 搜索相关
+        "search_query_mode": "llm",
+        "search_engine": "baidu",
+        "search_timeout": 15,
+        "search_max_posts": 5,
+        "search_max_comments": 3,
+        "cache_event_ttl": 600,
+        "cache_character_ttl": 604800,
+        "tieba_bduss": "",
+        "tieba_stoken": "",
+        "tieba_baiduid": "",
+        # 运行时（非持久化）
+        "provider_id": None,
     }
-    
+
     def __init__(self, context: Any):
         self._context = context
         self._cache: dict[str, Any] = {}
         self._cache_valid = False
         self._plugin_name = "astrbot_plugin_wwkudie"
+        # 运行时配置（不持久化，存在内存中）
+        self._runtime: dict[str, Any] = {}
     
     def _load_config(self) -> dict[str, Any]:
         """从 AstrBot 配置系统加载配置"""
@@ -92,21 +107,4 @@ class ConfigManager:
     
     def get_all(self) -> dict[str, Any]:
         """获取所有配置"""
-        config = self._load_config()
-        result = dict(self.DEFAULTS)
-        result.update(config)
-        return result
-    
-    def invalidate_cache(self):
-        """使配置缓存失效"""
-        self._cache_valid = False
-        self._cache.clear()
-    
-    def reload(self):
-        """重新加载配置"""
-        self.invalidate_cache()
-        config = self._load_config()
-        self._cache = dict(self.DEFAULTS)
-        self._cache.update(config)
-        self._cache_valid = True
-        logger.info("配置已重新加载")
+        config = self._load_config
