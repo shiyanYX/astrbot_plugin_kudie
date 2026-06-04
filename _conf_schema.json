@@ -22,6 +22,12 @@
     "hint": "是否保存用户的历史生成记录",
     "default": true
   },
+  "enable_debug": {
+    "description": "启用调试日志",
+    "type": "bool",
+    "hint": "开启后贴吧爬虫会输出详细调试信息（搜索URL、响应大小等）",
+    "default": false
+  },
   "max_history_per_user": {
     "description": "每用户最大历史记录数",
     "type": "int",
