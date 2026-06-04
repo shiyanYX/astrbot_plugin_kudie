@@ -100,18 +100,18 @@ class KudiePlugin(Star):
             ctx = ssl.create_default_context()
             ctx.check_hostname = False; ctx.verify_mode = ssl.CERT_NONE
             o = build_opener(HTTPSHandler(context=ctx))
-            # 用 Cookie 访问贴吧首页，有 BDUSS 就不会出验证码
-            req = Request("https://tieba.baidu.com/",
-                headers={"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)",
+            # 用爬虫相同的移动端搜索接口验证（首页会 403）
+            req = Request("https://tieba.baidu.com/mo/q/search/thread?kw=&word=test&rn=1",
+                headers={"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15",
                          "Cookie": f"BDUSS={bduss}"})
             r = o.open(req, timeout=8)
             html = r.read().decode("utf-8", errors="ignore")
-            valid = "安全验证" not in html and len(html) > 500
+            valid = "安全验证" not in html and len(html) > 200
             if not valid:
-                logger.info(f"Cookie 验证失败: 长度={len(html)}, 含验证码={'安全验证' in html}")
+                logger.info(f"Cookie 验证失败: len={len(html)}, captcha={'安全验证' in html}")
             return valid
         except Exception as e:
-            logger.info(f"Cookie 验证异常: {e}")
+            logger.info(f"Cookie 验证网络异常: {e}")
             return False
 
     # ==================== 命令处理 ====================
