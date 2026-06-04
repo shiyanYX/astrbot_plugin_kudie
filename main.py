@@ -284,6 +284,7 @@ class KudiePlugin(Star):
                     self._crawler = TiebaCrawler(
                         bduss=bduss, stoken=stoken, baiduid=baiduid,
                         timeout=self._config.get("search_timeout", 15),
+                        debug=self._config.get("enable_debug", False),
                     )
                     self._generator._crawler = self._crawler
                     yield event.plain_result("🎉 贴吧扫码登录成功！现在可以使用 /尽孝搜索 了")
@@ -319,6 +320,7 @@ class KudiePlugin(Star):
                 bduss=bduss, stoken=stoken,
                 search_engine=self._config.get("search_engine", "baidu"),
                 timeout=self._config.get("search_timeout", 15),
+                debug=self._config.get("enable_debug", False),
             )
             self._generator._crawler = self._crawler
             yield event.plain_result("✅ 贴吧Cookie已保存！")
@@ -338,6 +340,4 @@ class KudiePlugin(Star):
         elif content == "角色":
             self._cache.clear_character_cache()
             yield event.plain_result("✅ 角色信息缓存已清除")
-        else:
-            yield event.plain_result("Cache: clear/event/char")
-
+        

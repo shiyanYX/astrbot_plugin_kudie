@@ -125,6 +125,7 @@ class ArticleGenerator:
                 max_search=self._config.get("search_max_posts", 10),
                 max_content=self._config.get("search_max_comments", 5),
             )
+            logger.info(f"爬虫返回: {len(search_text)} 字符" if search_text else "爬虫返回: 空结果")
 
             if search_text:
                 bg_prompt = self._prompt_builder.build_background_prompt(search_text)
@@ -229,6 +230,4 @@ class ArticleGenerator:
         elif "quota" in error_message or "billing" in error_message:
             return "💳 API额度不足"
         elif "content" in error_message or "policy" in error_message:
-            return "🛡️ 内容被安全策略拦截"
-        else:
-            return "❌ 生成失败，请稍后重试"
+            
