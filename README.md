@@ -178,4 +178,25 @@ astrbot_plugin_wwkudie/
 ### v2.0.0 (2026-05-08)
 - ✅ 重构代码架构，模块化设计
 - ✅ 新增 2 种写作风格（新闻联播、学术期刊）
-- �
+- ✅ 重构代码架构，模块化设计
+- ✅ 新增 2 种写作风格（新闻联播、学术期刊）
+- ✅ 新增历史记录功能
+- ✅ 新增限流机制
+- ✅ 新增 Prompt Injection 防护
+
+## 注意事项
+
+- 确保 AstrBot 已正确配置 AI 模型
+- 贴吧搜索需先通过 /尽孝扫码 配置 Cookie
+
+## 许可证
+
+MIT License
+
+## 作者
+
+NumInvis
+
+## 仓库
+
+https://github.com/NumInvis/astrbot_plugin_wwkudie
