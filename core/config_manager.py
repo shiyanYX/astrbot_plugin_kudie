@@ -78,6 +78,7 @@ class ConfigManager:
                 self._context.config[self._plugin_name].update(self._runtime)
             # 同时写入 runtime 到 _cache，确保 get() 能读到最新值
             self._cache.update(self._runtime)
+            self._cache_valid = True
             logger.info("配置已持久化")
         except Exception as e:
             logger.warning(f"持久化配置失败: {e}")
