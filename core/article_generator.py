@@ -6,9 +6,9 @@
 
 import asyncio
 import re
-import logging
 from typing import Any, Optional
 
+from astrbot.api import logger
 from astrbot.api.event import AstrMessageEvent
 from astrbot.api.star import Context
 
@@ -19,7 +19,6 @@ from .search.tieba_crawler import TiebaCrawler
 from .search.search_optimizer import SearchOptimizer
 from .search.cache_manager import CacheManager
 
-logger = logging.getLogger(__name__)
 
 
 class LLMResponseParser:
