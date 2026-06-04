@@ -341,5 +341,4 @@ class KudiePlugin(Star):
             self._cache.clear_character_cache()
             yield event.plain_result("✅ 角色信息缓存已清除")
         else:
-            yield event.plain_result(
-                "
+            yield event.plain_result("📦 /尽孝缓�
