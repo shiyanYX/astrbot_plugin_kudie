@@ -12,9 +12,6 @@ build/
 .idea/
 
 # 测试和调试文件
-test_*.py
-test_*.log
-test_*.json
 debug_*.py
 debug_*.log
 qr_login.png
@@ -28,3 +25,9 @@ post_*.html
 # Python
 __pycache__/
 *.pyc
+test_mini.py
+test_search.py
+test_network.py
+test_network.log
+debug_bing.py
+debug_search.py
