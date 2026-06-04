@@ -26,6 +26,8 @@ class ConfigManager:
         "search_max_comments": 3,
         "cache_event_ttl": 600,
         "cache_character_ttl": 604800,
+        "enable_wiki_search": True,
+        "wiki_sources": "auto",
         "tieba_bduss": "",
         "tieba_stoken": "",
         "tieba_baiduid": "",
@@ -106,5 +108,3 @@ class ConfigManager:
         return self.DEFAULTS.get(key, default)
     
     def get_all(self) -> dict[str, Any]:
-        """获取所有配置"""
-        config = self._load_config

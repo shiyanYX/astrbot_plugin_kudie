@@ -31,3 +31,5 @@ test_network.py
 test_network.log
 debug_bing.py
 debug_search.py
+test_wiki.py
+test_wiki.py
