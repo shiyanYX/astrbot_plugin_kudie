@@ -43,6 +43,7 @@ class KudiePlugin(Star):
             stoken=self._config.get("tieba_stoken", ""),
             baiduid=self._config.get("tieba_baiduid", ""),
             timeout=self._config.get("search_timeout", 15),
+            debug=self._config.get("enable_debug", True),
         )
         self._generator = ArticleGenerator(
             context=context,
@@ -341,5 +342,4 @@ class KudiePlugin(Star):
             yield event.plain_result("✅ 角色信息缓存已清除")
         else:
             yield event.plain_result(
-                "0001F4E6 /尽孝缓存 清除/事件/角色"
-            )
+                "

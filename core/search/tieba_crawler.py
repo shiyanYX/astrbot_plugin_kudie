@@ -10,7 +10,10 @@ _UA = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126.0.0.0 Safari/537.36",
     "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15",
 ]
-def _log(msg): logger.info(msg); print(f"  [LOG] {msg}")
+def _log(msg, debug=True):
+    if not debug: return
+    logger.info(msg)
+    print(f"  [DEBUG] {msg}")
 
 def _fetch(url, headers=None, data=None, cookie_str="", t=15):
     h = dict(headers) if headers else {}
@@ -41,10 +44,11 @@ class TiebaCrawler:
     BING_SEARCH = "https://www.bing.com/search"
     TIEBA_POST = "https://tieba.baidu.com/mo/q/m"
 
-    def __init__(self, bduss="", stoken="", baiduid="", tiebauid="", timeout=15):
+    def __init__(self, bduss="", stoken="", baiduid="", tiebauid="", timeout=15, debug=True):
         self._bd = bduss; self._st = stoken; self._ba = baiduid; self._ti = tiebauid
         self._t = timeout
-        _log(f"Crawler timeout={timeout}s bduss={'Y' if bduss else 'N'}")
+        self._debug = debug
+        _log(f"Crawler timeout={timeout}s bduss={'Y' if bduss else 'N'}", debug, debug=self._debug)
 
     @property
     def _cookie(self):
@@ -60,7 +64,7 @@ class TiebaCrawler:
     def _delay(self): time.sleep(random.uniform(0.2, 0.8))
 
     def search(self, kw, mr=10):
-        _log(f"Search: '{kw}'")
+        _log(f"Search: '{kw}'", debug=self._debug)
         r = self._native(kw, mr)
         if r: return r
         q = f"{kw} 贴吧"
@@ -68,7 +72,7 @@ class TiebaCrawler:
         if r: return r
         r = self._bing_html(q, mr)
         if r: return r
-        _log("All failed"); return []
+        _log("All failed", debug=self._debug)
 
     def _native(self, kw, mr):
         p = kw.split()
@@ -82,10 +86,10 @@ class TiebaCrawler:
         for sc, q in qs:
             kp = quote_plus(g) if sc != 'all' else ''
             url = f"https://tieba.baidu.com/mo/q/search/thread?kw={kp}&word={quote_plus(q)}&rn={mr}"
-            _log(f"  [{sc}] {url[:130]}")
+            _log(f"  [{sc}] {url[:130]}", debug=self._debug)
             self._delay()
             html = _fetch(url, headers=self._h(mobile=True), cookie_str=self._cookie, t=self._t)
-            _log(f"  {len(html)}B")
+            _log(f"  {len(html)}B", debug=self._debug)
             if '安全验证' in html or len(html) < 500: continue
             tids = re.findall(r'"tid":"?(\d+)"?', html) + re.findall(r'kz=(\d+)', html)
             tids = list(dict.fromkeys(tids))
@@ -125,10 +129,10 @@ class TiebaCrawler:
 
     def get_post(self, tid, page=1):
         url = f"{self.TIEBA_POST}?kz={tid}&pn={page}"
-        _log(f"Post tid={tid}")
+        _log(f"Post tid={tid}", debug=self._debug)
         self._delay()
         html = _fetch(url, headers=self._h(mobile=True), cookie_str=self._cookie, t=self._t)
-        _log(f"  {len(html)}B")
+        _log(f"  {len(html)}B", debug=self._debug)
         r = self._parse(html)
         if r: _log(f"  {r['floor_count']} floors")
         else: _log("  no content")
