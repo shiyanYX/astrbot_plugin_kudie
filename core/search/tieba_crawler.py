@@ -165,7 +165,13 @@ class TiebaCrawler:
         lines = []
         for i, r in enumerate(rs):
             p = self.get_post(r['tid'])
-            if not p or not p['posts']: continue
+            if p:
+                fc = p.get("floor_count", 0)
+                pc = len(p.get("posts", []))
+                logger.info(f"  帖子{i+1}: tid={r['tid']}, {fc}楼 posts={pc}")
+            else:
+                logger.info(f"  帖子{i+1}: tid={r['tid']}, None")
+            if not p or not p["posts"]: continue
             lines.append(f"--- Post {i+1}: {p['title']} ---")
             lines.append(f"URL: {r['url']}\n")
  
