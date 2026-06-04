@@ -27,7 +27,7 @@ from .core.search.qrlogin import TiebaQRLogin
 class WwkudiePlugin(Star):
     """尽孝插件主类"""
 
-    def __init__(self, context: Context):
+    def __init__(self, context: Context, config: dict = None):
         super().__init__(context)
         data_dir = Path(__file__).parent / "data"
         self._config = ConfigManager(context)
@@ -42,9 +42,7 @@ class WwkudiePlugin(Star):
             bduss=self._config.get("tieba_bduss", ""),
             stoken=self._config.get("tieba_stoken", ""),
             baiduid=self._config.get("tieba_baiduid", ""),
-            search_engine=self._config.get("search_engine", "baidu"),
             timeout=self._config.get("search_timeout", 15),
-            max_retries=3,
         )
         self._generator = ArticleGenerator(
             context=context,
@@ -284,7 +282,6 @@ class WwkudiePlugin(Star):
                         self._config.set("tieba_baiduid", baiduid)
                     self._crawler = TiebaCrawler(
                         bduss=bduss, stoken=stoken, baiduid=baiduid,
-                        search_engine=self._config.get("search_engine", "baidu"),
                         timeout=self._config.get("search_timeout", 15),
                     )
                     self._generator._crawler = self._crawler
