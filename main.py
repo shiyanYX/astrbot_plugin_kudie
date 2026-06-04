@@ -89,6 +89,25 @@ class KudiePlugin(Star):
             style = self._config.get("default_style", "默认")
         return game_name, event_desc, style, ""
 
+    def _check_cookie_valid(self) -> bool:
+        """检查贴吧 Cookie 是否有效"""
+        bduss = self._config.get("tieba_bduss", "")
+        if not bduss:
+            return False
+        try:
+            from urllib.request import Request, build_opener, HTTPSHandler
+            import ssl
+            ctx = ssl.create_default_context()
+            ctx.check_hostname = False; ctx.verify_mode = ssl.CERT_NONE
+            o = build_opener(HTTPSHandler(context=ctx))
+            req = Request("https://tieba.baidu.com/mo/q/search/thread?kw=&word=test&rn=1",
+                headers={"User-Agent": "Mozilla/5.0", "Cookie": f"BDUSS={bduss}"})
+            r = o.open(req, timeout=8)
+            html = r.read().decode("utf-8", errors="ignore")
+            return "安全验证" not in html and len(html) >= 200
+        except Exception:
+            return False
+
     # ==================== 命令处理 ====================
 
     @filter.command("尽孝")
@@ -134,6 +153,9 @@ class KudiePlugin(Star):
     @filter.command("尽孝搜索")
     async def kudie_search(self, event: AstrMessageEvent):
         """尽孝搜索 - 搜索链路"""
+        if not self._check_cookie_valid():
+            yield event.plain_result("⚠️ 贴吧 Cookie 未配置或已过期\n请使用 /尽孝扫码 登录后重试")
+            return
         user_id = event.get_sender_id()
         content = event.message_str.strip()
         if not content:
@@ -286,6 +308,7 @@ class KudiePlugin(Star):
                         self._config.set("tieba_stoken", stoken)
                     if baiduid:
                         self._config.set("tieba_baiduid", baiduid)
+                    self._config.save()
                     self._crawler = TiebaCrawler(
                         bduss=bduss, stoken=stoken, baiduid=baiduid,
                         timeout=self._config.get("search_timeout", 15),
@@ -321,6 +344,7 @@ class KudiePlugin(Star):
             self._config.set("tieba_bduss", bduss)
             if stoken:
                 self._config.set("tieba_stoken", stoken)
+            self._config.save()
             self._crawler = TiebaCrawler(
                 bduss=bduss, stoken=stoken,
                 search_engine=self._config.get("search_engine", "baidu"),

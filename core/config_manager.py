@@ -69,6 +69,18 @@ class ConfigManager:
         self._cache[key] = value
         self._runtime[key] = value
 
+    def save(self):
+        """持久化配置到 AstrBot"""
+        try:
+            if hasattr(self._context, "config") and isinstance(self._context.config, dict):
+                if self._plugin_name not in self._context.config:
+                    self._context.config[self._plugin_name] = {}
+                self._context.config[self._plugin_name].update(self._runtime)
+                self.invalidate_cache()
+                logger.info("配置已持久化")
+        except Exception as e:
+            logger.warning(f"持久化配置失败: {e}")
+
     def invalidate_cache(self):
         self._cache_valid = False
         self._cache.clear()
@@ -79,5 +91,4 @@ class ConfigManager:
         self._cache = dict(self.DEFAULTS)
         self._cache.update(config)
         self._cache_valid = True
-        logger
         logger.info("配置已重新加载")
