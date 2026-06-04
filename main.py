@@ -22,7 +22,6 @@ from .core.search.tieba_crawler import TiebaCrawler
 from .core.search.cache_manager import CacheManager
 from .core.search.qrlogin import TiebaQRLogin
 
-
 @register(__plugin_name__, __author__, __plugin_desc__, __version__)
 class KudiePlugin(Star):
     """尽孝插件主类"""
@@ -251,7 +250,6 @@ class KudiePlugin(Star):
         )
         yield event.plain_result(help_text)
 
-
     @filter.command("尽孝扫码")
     async def kudie_qrlogin(self, event: AstrMessageEvent):
         """贴吧扫码登录"""
@@ -341,4 +339,5 @@ class KudiePlugin(Star):
             self._cache.clear_character_cache()
             yield event.plain_result("✅ 角色信息缓存已清除")
         else:
-            yield event.plain_result("📦 /尽孝缓�
+            yield event.plain_result("Cache: clear/event/char")
+
