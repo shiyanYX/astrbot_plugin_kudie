@@ -5,7 +5,11 @@ from urllib.request import Request, build_opener, HTTPSHandler
 from urllib.parse import urlencode, quote, quote_plus, unquote
 from urllib.error import HTTPError
 
-from astrbot.api import logger
+try:
+    from astrbot.api import logger
+except ImportError:
+    import logging
+    logger = logging.getLogger(__name__)
 _UA = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126.0.0.0 Safari/537.36",
     "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15",
