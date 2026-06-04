@@ -1,11 +1,11 @@
 """贴吧爬虫 v2.3.0"""
-import re, time, random, logging, ssl, gzip, os
+import re, time, random, ssl, gzip, os
 from typing import Optional
 from urllib.request import Request, build_opener, HTTPSHandler
 from urllib.parse import urlencode, quote, quote_plus, unquote
 from urllib.error import HTTPError
 
-logger = logging.getLogger(__name__)
+from astrbot.api import logger
 _UA = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126.0.0.0 Safari/537.36",
     "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15",
