@@ -36,20 +36,21 @@ class SearchOptimizer:
         """
         self._generate = llm_generate_func
 
-    async def optimize(self, game_name: str, event_desc: str) -> str:
+    async def optimize(self, game_name: str, event_desc: str, umo=None) -> str:
         """
         优化搜索词
 
         Args:
             game_name: 游戏名
             event_desc: 事件描述
+            umo: unified_msg_origin，用于自动获取 LLM provider
 
         Returns:
             优化后的搜索关键词字符串
         """
         prompt = self.OPTIMIZE_PROMPT.format(game=game_name, event=event_desc)
         try:
-            result = await self._generate(prompt)
+            result = await self._generate(prompt, umo) if umo else await self._generate(prompt)
             if result:
                 return result.strip()
         except Exception as e:

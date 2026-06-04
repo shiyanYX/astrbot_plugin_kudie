@@ -69,12 +69,18 @@ class ArticleGenerator:
         self._cache = cache_manager
         self._search_optimizer = SearchOptimizer(self._llm_generate_plain)
 
-    async def _llm_generate_plain(self, prompt: str) -> str:
+    async def _llm_generate_plain(self, prompt: str, umo=None) -> str:
         """不带风格的纯 LLM 调用，用于搜索词优化和背景摘要"""
         try:
             provider_id = self._config.get("provider_id")
             if not provider_id:
-                return ""
+                if umo is not None:
+                    provider_id = await self._context.get_current_chat_provider_id(umo=umo)
+                    if provider_id:
+                        self._config.set("provider_id", provider_id)
+                if not provider_id:
+                    logger.warning("LLM provider_id 未设置，跳过优化")
+                    return ""
             llm_resp = await self._context.llm_generate(
                 chat_provider_id=provider_id, prompt=prompt,
             )
@@ -114,7 +120,7 @@ class ArticleGenerator:
         elif self._crawler:
             search_mode = self._config.get("search_query_mode", "llm")
             if search_mode == "llm":
-                keyword = await self._search_optimizer.optimize(game_name, event_desc)
+                keyword = await self._search_optimizer.optimize(game_name, event_desc, event.unified_msg_origin)
             else:
                 keyword = f"{game_name} {event_desc}"
             logger.info(f"搜索关键词: {keyword}")
