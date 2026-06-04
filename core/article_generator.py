@@ -230,4 +230,6 @@ class ArticleGenerator:
         elif "quota" in error_message or "billing" in error_message:
             return "💳 API额度不足"
         elif "content" in error_message or "policy" in error_message:
-            
+            return "🛡️ 内容被安全策略拦截"
+        else:
+            return "❌ 生成失败，请稍后重试"
