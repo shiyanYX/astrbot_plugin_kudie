@@ -188,15 +188,3 @@ astrbot_plugin_kudie/
 
 - 确保 AstrBot 已正确配置 AI 模型
 - 贴吧搜索需先通过 /尽孝扫码 配置 Cookie
-
-## 许可证
-
-MIT License
-
-## 作者
-
-NumInvis
-
-## 仓库
-
-https://github.com/NumInvis/astrbot_plugin_kudie
