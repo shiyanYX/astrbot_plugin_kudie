@@ -48,7 +48,7 @@ class TiebaCrawler:
         self._bd = bduss; self._st = stoken; self._ba = baiduid; self._ti = tiebauid
         self._t = timeout
         self._debug = debug
-        _log(f"Crawler timeout={timeout}s bduss={'Y' if bduss else 'N'}", debug, debug=self._debug)
+        _log(f"Crawler timeout={timeout}s bduss={'Y' if bduss else 'N'}", debug)
 
     @property
     def _cookie(self):
