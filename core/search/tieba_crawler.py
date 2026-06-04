@@ -12,7 +12,7 @@ _UA = [
 ]
 def _log(msg, debug=True):
     if not debug: return
-    logger.info(msg)
+    logger.debug(msg)
     print(f"  [DEBUG] {msg}")
 
 def _fetch(url, headers=None, data=None, cookie_str="", t=15):

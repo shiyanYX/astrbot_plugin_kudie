@@ -37,8 +37,9 @@ _GAME_WIKI_MAP = {
     "无期迷途": "wqmt",
 }
 
-def _log(msg):
-    logger.info(msg)
+def _log(msg, debug=False):
+    if not debug: return
+    logger.debug(msg)
     print(f"  [WIKI] {msg}")
 
 def _fetch(url, t=10):
@@ -138,4 +139,3 @@ if __name__ == "__main__":
     for g, c in [("卡拉彼丘", "令"), ("原神", "钟离"), ("鸣潮", "漂泊者")]:
         print(f"\n{'='*40}")
         r = w.search_character(g, c)
-        print(r or "⚠️ 未找到")
