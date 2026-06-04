@@ -259,7 +259,9 @@ class WwkudiePlugin(Star):
             qr_data = qr.get_qrcode()
             yield event.plain_result("📱 请用百度App扫描下方二维码登录贴吧（2分钟内有效）：")
             from astrbot.api.message_components import Image
-            yield event.chain_result([Image(file=qr_data["img_data"])])
+            import base64
+            b64 = base64.b64encode(qr_data["img_data"]).decode()
+            yield event.chain_result([Image(file=b64)])
             sign = qr_data["sign"]
             for _ in range(60):
                 await asyncio.sleep(2)
@@ -338,6 +340,4 @@ class WwkudiePlugin(Star):
             self._cache.clear_character_cache()
             yield event.plain_result("✅ 角色信息缓存已清除")
         else:
-            yield event.plain_result(
-                "📦 /尽孝缓存 清除/事件/角色"
-            )
+            yield event.plain_resul
