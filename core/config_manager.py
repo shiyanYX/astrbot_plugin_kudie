@@ -13,6 +13,7 @@ class ConfigManager:
     DEFAULTS = {
         "default_style": "默认",
         "system_prompt": None,
+        "enable_debug": False,
         "enable_history": True,
         "max_history_per_user": 10,
         "search_query_mode": "llm",
@@ -78,4 +79,5 @@ class ConfigManager:
         self._cache = dict(self.DEFAULTS)
         self._cache.update(config)
         self._cache_valid = True
+        logger
         logger.info("配置已重新加载")

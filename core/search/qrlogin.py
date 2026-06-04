@@ -214,4 +214,17 @@ class TiebaQRLogin:
             if poll_callback:
                 poll_callback(status)
 
-            
+            if status["status"] == "confirmed" and status["bduss"]:
+                result = self.login(status["bduss"])
+                return {
+                    "bduss": result["bduss"],
+                    "stoken": result.get("stoken", ""),
+                    "baiduid": result.get("baiduid", ""),
+                    "tiebauid": result.get("tiebauid", ""),
+                }
+            elif status["status"] == "scanned":
+                pass
+
+            time.sleep(poll_interval)
+
+        return None
